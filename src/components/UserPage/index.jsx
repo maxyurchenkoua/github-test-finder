@@ -8,26 +8,6 @@ const UserPage = () => {
   let params = useParams();
   const userName = params.userName;
 
-  const [usersData, setDataState] = useState({
-    loading: false,
-    userData: null,
-  });
-
-  useEffect(() => {
-    setDataState({ loading: true });
-    axios
-      .get(`search/users?q=${userName}`)
-      .then((response) => {
-        setDataState({
-          loading: false,
-          userData: response.data.items,
-        });
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
-  }, [userName]);
-
   return (
     <>
       <Biography userName={userName} />
