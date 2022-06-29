@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { UserCard } from "./UserCard/UserCard";
+import { SearchCard } from "./SearchCard";
 
 const SearchPage = () => {
   const [usersData, setUsersData] = useState({
@@ -21,7 +21,6 @@ const SearchPage = () => {
             users: response.data.items,
           });
           setError(null);
-          console.log(response.data.items);
         })
         .catch((errors) => {
           setError(errors);
@@ -58,12 +57,11 @@ const SearchPage = () => {
 
       {usersData.users ? (
         usersData.users.map((user) => (
-          <UserCard
+          <SearchCard
             key={user.id}
             image={user.avatar_url}
             login={user.login}
             url={user.url}
-            repos={user.public_repos}
           />
         ))
       ) : (

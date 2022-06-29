@@ -3,13 +3,14 @@ import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import axios from 'axios';
 
 import { Header } from './components/app/Header/Header'
-import SearchPage from './components/SearchPage/SearchPage'
-import UserPage from './components/UserPage/UserPage'
+import SearchPage from './components/SearchPage'
+import UserPage from './components/UserPage'
 
 import './styles/styles.scss'
 
 axios.defaults.baseURL = 'https://api.github.com'
-axios.defaults.headers.common = { 'Content-Type': 'application/json' }
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Authorization'] = `token ${process.env.AUTH_TOKEN}`;
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SearchPage />} />
-          <Route path="user/:id" element={<UserPage />} />
+          <Route path="user/:userName" element={<UserPage />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>
