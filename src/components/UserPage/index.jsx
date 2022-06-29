@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { UserCard } from "./UserCard";
+import { Biography } from "./Biography/Biography";
+import { ReposList } from "./ReposList/";
 
 const UserPage = () => {
   let params = useParams();
@@ -29,8 +30,8 @@ const UserPage = () => {
 
   return (
     <>
-      <h1>Now showing user name: {userName}</h1>
-      <UserCard />
+      <Biography userName={userName} />
+      <ReposList userName={userName} />
       <Link to="/">Go back</Link>
     </>
   );

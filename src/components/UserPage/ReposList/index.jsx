@@ -8,6 +8,7 @@ export const ReposList = (props) => {
     repos: null,
   });
   const [error, setError] = useState("");
+  const [inputText, setInputText] = useState("");
 
   useEffect(() => {
     setDataState({ loading: true });
@@ -27,15 +28,28 @@ export const ReposList = (props) => {
 
   return (
     <>
-      <div>
-        {dataState.repos ? (
-          dataState.repos.map((repo) => <RepoCard key={repo.id} repo={repo} />)
-        ) : (
-          <span> Loading... </span>
-        )}
+      {/* <RepoSearch /> */}
 
-        {error && error}
-      </div>
+      <input
+        type="search"
+        onChange={(e) => {
+          setInputText(e.target.value);
+        }}
+        name="username"
+        placeholder="Search repos..."
+      />
+
+      {dataState.repos ? (
+        dataState.repos
+          .filter((repo) => repo.name.includes(inputText))
+          .map((filteredRepo) => (
+            <RepoCard key={filteredRepo.id} repo={filteredRepo} />
+          ))
+      ) : (
+        <span> Loading... </span>
+      )}
+
+      {error && error}
     </>
   );
 };
