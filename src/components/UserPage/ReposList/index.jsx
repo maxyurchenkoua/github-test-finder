@@ -28,8 +28,6 @@ export const ReposList = (props) => {
 
   return (
     <>
-      {/* <RepoSearch /> */}
-
       <input
         type="search"
         onChange={(e) => {

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import { Biography } from "./Biography/Biography";
 import { ReposList } from "./ReposList/";
 

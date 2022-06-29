@@ -17,7 +17,6 @@ export const Biography = (props) => {
           loading: false,
           user: response.data,
         });
-        // console.log(response.data);
       })
       .catch((errors) => {
         console.log(errors);
