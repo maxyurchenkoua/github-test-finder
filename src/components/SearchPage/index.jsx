@@ -7,11 +7,16 @@ const SearchPage = () => {
     loading: false,
     users: [],
   });
-  const [error, setError] = useState("");
+  const [value, setValue] = useState("");
   const [timer, setTimer] = useState(null);
 
+  useEffect(() => {
+    setValue(localStorage.getItem("searchInputText"));
+    fetchData(value);
+  }, [value]);
+
   const fetchData = (username) => {
-    if (username.length > 2) {
+    if (username && username.length > 2) {
       setUsersData({ loading: true });
       axios
         .get(`search/users?q=${username}`)
@@ -20,13 +25,11 @@ const SearchPage = () => {
             loading: false,
             users: response.data.items,
           });
-          setError(null);
         })
         .catch((errors) => {
-          setError(errors);
+          console.log(errors);
         });
     } else {
-      setError("Enter minimum 3 symbols");
       setUsersData({
         users: [],
       });
@@ -36,7 +39,9 @@ const SearchPage = () => {
   const onSearchInput = (e) => {
     clearTimeout(timer);
     const newTimer = setTimeout(() => {
-      fetchData(e.target.value);
+      setValue(e.target.value);
+      fetchData(value);
+      localStorage.setItem("searchInputText", e.target.value);
     }, 700);
     setTimer(newTimer);
   };
@@ -49,11 +54,10 @@ const SearchPage = () => {
         onChange={(e) => {
           onSearchInput(e);
         }}
+        defaultValue={value}
         name="username"
         placeholder="Enter GitHub username..."
       />
-
-      {error && error}
 
       {usersData.users ? (
         usersData.users.map((user) => (
@@ -65,7 +69,7 @@ const SearchPage = () => {
           />
         ))
       ) : (
-        <span> Loading... </span>
+        <span> No data... </span>
       )}
     </>
   );

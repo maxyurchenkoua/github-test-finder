@@ -30,7 +30,7 @@ export const SearchCard = (props) => {
       <div>
         <NavLink to={`/user/${props.login}`}>
           <img src={props.image} alt={props.login}></img>
-          <p>Login: {props.login}</p>
+          <p>{props.login}</p>
         </NavLink>
 
         {userData.publicRepos ? (
