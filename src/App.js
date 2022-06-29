@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import axios from 'axios';
+
+import { Header } from './components/app/Header/Header'
+import SearchPage from './components/SearchPage/SearchPage'
+import UserPage from './components/UserPage/UserPage'
+
+import './styles/styles.scss'
+
+axios.defaults.baseURL = 'https://api.github.com'
+axios.defaults.headers.common = { 'Content-Type': 'application/json' }
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SearchPage />} />
+          <Route path="user/:id" element={<UserPage />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
-export default App;
+
+export default App
