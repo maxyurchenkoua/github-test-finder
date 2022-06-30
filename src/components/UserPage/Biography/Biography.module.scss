@@ -2,10 +2,16 @@
 
 .container {
   display: flex;
+  flex-direction: column;
   padding: 20px;
   @media (max-width: 768px) {
       width: 85%;
     }
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: row;
 }
 
 .avatar {
@@ -28,4 +34,9 @@
   color: white;
   font-weight: 600;
   padding: 4px 10px;
+}
+
+.bio {
+  width: 100%;
+  font-weight: 500;
 }

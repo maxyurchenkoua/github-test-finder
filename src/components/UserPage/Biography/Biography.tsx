@@ -72,11 +72,12 @@ export const Biography = ({ userName }:ParamsProps) => {
         {dataState.user ? (
           <>
             <div className={s.container}>
-              <img
-                className={s.avatar}
-                src={dataState.user.avatar_url}
-                alt={dataState.user.name}
-              ></img>
+              <div className={s.mainInfo}>
+                 <img
+                  className={s.avatar}
+                  src={dataState.user.avatar_url}
+                  alt={dataState.user.name}
+                ></img>
 
               <div className={s.profileInfo}>
                 <h1>{dataState.user.name}</h1>
@@ -97,10 +98,13 @@ export const Biography = ({ userName }:ParamsProps) => {
                   <span className={s.badge}>{dataState.user.following}</span>
                 </p>
               </div>
+              </div>
               
-              {dataState.user.bio && <div>
-                <p>Bio here: {dataState.user.bio}</p>
-                </div>}
+            </div>
+            <div className={s.bio}>
+              {dataState.user.bio &&
+                <p>{dataState.user.bio}</p>
+              }
             </div>
           </>
         ) : (
