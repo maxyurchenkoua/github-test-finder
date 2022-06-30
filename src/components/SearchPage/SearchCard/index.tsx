@@ -22,7 +22,7 @@ export const SearchCard = ({login, image}:SearchCardProps) => {
   useEffect(() => {
     const fetchData = (username) => {
       setDataState({ loading: true });
-      fetch(`http://api.github.com/users/${username}`)
+      fetch(`https://api.github.com/users/${username}`)
         .then((response) => {
           if (!response.ok) {
             if(response.status === 403) {

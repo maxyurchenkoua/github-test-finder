@@ -18,7 +18,7 @@ const SearchPage = () => {
     setValue(localStorage.getItem("searchInputText") || '');
     const fetchData = (value) => {
       if (value && value.length > 5) { //<- minimum symbols for search here to reduce the number of Github API requests
-        fetch(`http://api.github.com/search/users?q=${value}`)
+        fetch(`https://api.github.com/search/users?q=${value}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error(`error - status is ${response.status}`);
