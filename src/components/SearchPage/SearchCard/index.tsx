@@ -2,20 +2,35 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import s from "./SearchCard.module.scss";
 
-export const SearchCard = (props) => {
-  const [userData, setDataState] = useState({
+interface SearchCardProps {
+  login: string,
+  image: string
+}
+
+interface SearchCardType {
+  loading: boolean,
+  publicRepos?: number | null
+}
+
+export const SearchCard = ({login, image}:SearchCardProps) => {
+  const [userData, setDataState] = useState<SearchCardType>({
     loading: false,
     publicRepos: null,
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchData = (username) => {
       setDataState({ loading: true });
-      fetch(`users/${username}`)
+      fetch(`http://api.github.com/users/${username}`)
         .then((response) => {
           if (!response.ok) {
-            setError(`error - ${response.status}`);
+            if(response.status === 403) {
+              setError(`${response.status} looks like API limit for IP`);
+            } else {
+              setError(`${response.status}`);
+            }
+            
           }
           return response.json();
         })
@@ -29,18 +44,26 @@ export const SearchCard = (props) => {
           console.log(err.message);
         });
     };
-    fetchData(props.login);
-  }, [props.login]);
+    fetchData(login);
+  }, [login]);
 
+  if (userData.loading) {
+    return (
+      <div>
+        <p>Loading data...</p>
+      </div>
+    )
+  }
+  
   return (
     <>
       <div className={s.wraper}>
         <div className={s.userData}>
-          <NavLink to={`/user/${props.login}`}>
-            <img className={s.avatar} src={props.image} alt={props.login}></img>
+          <NavLink to={`/user/${login}`}>
+            <img className={s.avatar} src={image} alt={login}></img>
           </NavLink>
-          <NavLink to={`/user/${props.login}`}>
-            <p className={s.username}>{props.login}</p>
+          <NavLink to={`/user/${login}`}>
+            <p className={s.username}>{login}</p>
           </NavLink>
         </div>
 

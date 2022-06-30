@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import axios from 'axios';
 
 import { Header } from './components/app/Header/Header'
-import SearchPage from './components/SearchPage'
+import SearchPage from './components/SearchPage/index'
 import UserPage from './components/UserPage'
+
 
 import './styles/styles.scss'
 
