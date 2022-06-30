@@ -1,0 +1,35 @@
+.wraper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin: 15px;
+  box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  border-radius: 15px;
+}
+
+.userData {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 15px;
+  width: 100px;
+  padding: 7px;
+  margin: 7px;
+  &:hover {
+      box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+}
+
+.username {
+  margin-left: 5px;
+  text-transform: capitalize;
+}
+
+.repos {
+  margin-right: 10px;
+}

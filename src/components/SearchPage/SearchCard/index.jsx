@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
+import s from "./SearchCard.module.scss";
 
 export const SearchCard = (props) => {
   const [userData, setDataState] = useState({
@@ -15,7 +15,7 @@ export const SearchCard = (props) => {
       fetch(`users/${username}`)
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`error - status is ${response.status}`);
+            setError(`error - ${response.status}`);
           }
           return response.json();
         })
@@ -32,34 +32,22 @@ export const SearchCard = (props) => {
     fetchData(props.login);
   }, [props.login]);
 
-  // useEffect(() => {
-  //   setDataState({ loading: true });
-  //   axios
-  //     .get(`users/${props.login}`)
-  //     .then((response) => {
-  //       setDataState({
-  //         loading: false,
-  //         publicRepos: response.data.public_repos,
-  //       });
-  //     })
-  //     .catch((errors) => {
-  //       console.log(errors);
-  //       setError(errors.response.data.message);
-  //     });
-  // }, [props.login]);
-
   return (
     <>
-      <div>
-        <NavLink to={`/user/${props.login}`}>
-          <img src={props.image} alt={props.login}></img>
-          <p>{props.login}</p>
-        </NavLink>
+      <div className={s.wraper}>
+        <div className={s.userData}>
+          <NavLink to={`/user/${props.login}`}>
+            <img className={s.avatar} src={props.image} alt={props.login}></img>
+          </NavLink>
+          <NavLink to={`/user/${props.login}`}>
+            <p className={s.username}>{props.login}</p>
+          </NavLink>
+        </div>
 
         {userData.publicRepos ? (
-          <p>Public repos: {userData.publicRepos}</p>
+          <p className={s.repos}>Public repos: {userData.publicRepos}</p>
         ) : (
-          <span>No repos data: {error}</span>
+          <span className={s.repos}>No data {error}</span>
         )}
       </div>
     </>

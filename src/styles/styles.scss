@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/css?family=Trispace);
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  background-color: #f4f5f7;
+}
+
+$blue-color: #3450db;
+$navy-color: #27285C;
+$green-color: #2a9461;
+
+h1 {
+  font-family: 'Trispace';
+  font-size: 1.7em;
+  color: $navy-color;
+}
+
+.wrap {
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+@mixin button-bg($bg) {
+  background: $bg;
+  &:hover {
+    background: darken($bg, 8%);
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background: darken($bg, 25%);
+  }
+}
+
+.btn {
+  color: white;
+  text-decoration: none;
+  padding: 11px 25px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  margin: 5px;
+}
+
+.btn-green {
+  @include button-bg($green-color);
+}
+
+.btn-blue {
+  @include button-bg($blue-color);
+}
+
+
+@mixin links ($link, $hover) {
+  & {
+    color: $link;
+    &:hover {
+      color: $hover;
+    }
+  }
+}
+a {
+  @include links($blue-color, $green-color);
+  // text-transform: uppercase;
+  font-weight: 600;
+}
+
+
+input[type=text] {
+  padding: 11px 25px;
+  margin: 5px;
+  width: 50%;
+  border-radius: 5px;
+  font-size: 1em;
+  border: none;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.06);
+  @media (max-width: 768px) {
+    width: 85%;
+  }
+}

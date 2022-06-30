@@ -1,0 +1,26 @@
+@import '/src/styles/styles.scss';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 20px 80px 20px;
+  padding: 5px 20px;
+  font-weight: 500;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.logo {
+  font-weight: 600;
+  color: $navy-color;
+  text-decoration: none;
+}
+
+.text {
+  font-size: small;
+  text-align: right;
+  color: grey;
+}

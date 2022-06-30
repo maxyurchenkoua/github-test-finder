@@ -1,0 +1,31 @@
+@import '/src/styles/styles.scss';
+
+.container {
+  display: flex;
+  padding: 20px;
+  @media (max-width: 768px) {
+      width: 85%;
+    }
+}
+
+.avatar {
+  width: 50%;
+  max-width: 300px;
+  margin: 0 20px 20px 0;
+  border-radius: 7%;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo {
+  text-align: left;
+}
+
+.badge {
+  margin-left: 5px;
+  background-color: $green-color;
+  border-radius: 28px;
+  display: inline-block;
+  color: white;
+  font-weight: 600;
+  padding: 4px 10px;
+}

@@ -11,7 +11,11 @@ const UserPage = () => {
     <>
       <Biography userName={userName} />
       <ReposList userName={userName} />
-      <Link to="/">Go back</Link>
+
+      <Link to="/">
+        <button className="btn btn-blue">Go back</button>
+      </Link>
+      <div style={{ marginBottom: "100px" }}></div>
     </>
   );
 };
