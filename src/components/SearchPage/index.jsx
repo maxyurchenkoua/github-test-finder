@@ -1,46 +1,40 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 import { SearchCard } from "./SearchCard";
 
 const SearchPage = () => {
-  const [usersData, setUsersData] = useState({
-    loading: false,
-    users: [],
-  });
+  const [users, setUsers] = useState([]);
   const [value, setValue] = useState("");
   const [timer, setTimer] = useState(null);
+  const inputRef = useRef();
 
   useEffect(() => {
     setValue(localStorage.getItem("searchInputText"));
-    fetchData(value);
-  }, [value]);
-
-  const fetchData = (username) => {
-    if (username && username.length > 2) {
-      setUsersData({ loading: true });
-      axios
-        .get(`search/users?q=${username}`)
-        .then((response) => {
-          setUsersData({
-            loading: false,
-            users: response.data.items,
+    const fetchData = () => {
+      if (value && value.length > 2) {
+        fetch(`http://api.github.com/search/users?q=${value}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`error - status is ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((actualData) => setUsers(actualData.items))
+          .catch((err) => {
+            console.log(err.message);
           });
-        })
-        .catch((errors) => {
-          console.log(errors);
-        });
-    } else {
-      setUsersData({
-        users: [],
-      });
-    }
-  };
+      } else if (value.length < 2) {
+        setUsers([]);
+      }
+    };
+    fetchData(value);
+    inputRef.current.focus();
+  }, [value]);
 
   const onSearchInput = (e) => {
     clearTimeout(timer);
     const newTimer = setTimeout(() => {
       setValue(e.target.value);
-      fetchData(value);
+      // fetchData(e.target.value);
       localStorage.setItem("searchInputText", e.target.value);
     }, 700);
     setTimer(newTimer);
@@ -54,13 +48,13 @@ const SearchPage = () => {
         onChange={(e) => {
           onSearchInput(e);
         }}
+        ref={inputRef}
         defaultValue={value}
-        name="username"
         placeholder="Enter GitHub username..."
       />
 
-      {usersData.users ? (
-        usersData.users.map((user) => (
+      {Array.isArray(users) ? (
+        users.map((user) => (
           <SearchCard
             key={user.id}
             image={user.avatar_url}
